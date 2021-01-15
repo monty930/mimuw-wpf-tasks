@@ -1,2 +1,4 @@
-# mimuw-wpf-tasks
- introduction to functional programming - projects and assignments
+# mimuw wpf tasks
+University of Warsaw
+Introduction to functional programming - projects and assignments
+Tasks 1, 2, 4, 5
