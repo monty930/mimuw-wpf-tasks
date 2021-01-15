@@ -1,0 +1,10 @@
+Sortowanie topologiczne polega na rozszerzeniu grafu skierowanego bez cykli (DAG-u) do porz¹dku liniowego.
+
+Mówi¹c proœciej, maj¹c dany DAG nale¿y przypisaæ wierzcho³kom takie ró¿ne liczby naturalne (nadaj¹ce kolejnoœæ tym wierzcho³kom), ¿eby dla ka¿dej krawêdzi grafu jej Ÿród³o mia³o ni¿szy numer ni¿ jej cel.
+
+Mówi¹c jeszcze proœciej, maj¹c dan¹ czêœciow¹ informacjê o zale¿noœci np. czynnoœci od siebie (np. buty wk³adamy po skarpetkach, krawat po koszuli itp. ale kolejnoœæ wk³adania skarpetek i koszuli mo¿e byæ dowolna) mamy wygenerowaæ œcis³¹ kolejnoœæ wykonywania czynnoœci (np. koszula, skarpetki, buty, krawat).
+
+Konkretnie nale¿y zaprogramowaæ implementacjê topol.ml za³¹czonej specyfikacji topol.mli.
+
+
+W implementacji mo¿na korzystaæ z modu³u pMap (bardzo podobnego do pSet z poprzedniego zadania), którego specyfikacja i implementacja równie¿ s¹ za³¹czone.

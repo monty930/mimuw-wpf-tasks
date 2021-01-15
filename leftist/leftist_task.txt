@@ -1,0 +1,25 @@
+Drzewa lewicowe to ciekawa implementacja z³¹czalnych kolejek priorytetowych.
+
+Kolejki priorytetowe to struktury przechowuj¹ce dane obdarzone priorytetami, umo¿liwiaj¹ce ³atwy dostêp do elementu o najwy¿szym priorytecie. (Tradycyjnie, im mniejsza liczba reprezentuj¹ca priorytet, tym wy¿szy priorytet. ;-) Struktury te dostarczaj¹ nastêpuj¹cych operacji:
+
+utwórz pust¹ strukturê,
+wstaw nowy element,
+usuñ element o najwy¿szym priorytecie.
+Oczywiœcie po usuniêciu elementu o najwy¿szym priorytecie, drugi w kolejnoœci staje siê tym najwy¿szym itd. Kolejki z³¹czalne umo¿liwiaj¹ dodatkowo ³¹czenie dwóch kolejek w jedn¹.
+
+Kolejki priorytetowe implementuje siê zwykle za pomoc¹ tzw. kopców, czyli struktur drzewiastych, które spe³niaj¹ tzw. warunek kopca, mówi¹cy, ¿e priorytet elementu zawartego w korzeniu ka¿dego poddrzewa jest mniejszy lub równy ni¿ ka¿dego innego elementu w tym poddrzewie.
+
+Drzewa lewicowe to kopce binarne (czyli ka¿dy wêze³ mo¿e mieæ 0, 1 lub dwóch potomków) spe³niaj¹ce, oprócz warunku kopca, tzw. warunek lewicowoœci. Warunek lewicowoœci mówi, ¿e dla ka¿dego wêz³a skrajnie prawa œcie¿ka zaczynaj¹ca siê w danym wêŸle jest najkrótsz¹ œcie¿k¹ od tego wêz³a do liœcia.
+
+Dziêki temu w ka¿dym drzewie lewicowym, tzw. prawa wysokoœæ, czyli d³ugoœæ skrajnej prawej œcie¿ki od korzenia do liœcia, jest co najwy¿ej logarytmicznej wielkoœci, w porównaniu z liczb¹ elementów drzewa. Dodatkowo, aby umo¿liwiæ efektywne wykonywanie operacji na drzewie, w ka¿dym wêŸle przechowywana jest prawa wysokoœæ poddrzewa zaczepionego w tym wêŸle.
+
+Najwa¿niejsz¹ operacj¹ na drzewach lewicowych jest ich ³¹czenie. Pozosta³e operacje wykonuje siê bardzo prosto:
+
+wstawianie elementu do istniej¹cego drzewa polega na utworzeniu jednoelementowego drzewa i po³¹czeniu go z danym drzewem,
+usuwanie najmniejszego to usuniêcie korzenia drzewa i po³¹czenie poddrzew.
+£¹czenie drzew lewicowych te¿ nie jest trudne. Aby po³¹czyæ dwa niepuste drzewa lewicowe, ustawiamy jako pierwsze (d1) to, które ma mniejszy element w korzeniu, a jako drugie (d2) to, które ma wiêkszy. W korzeniu wynikowego drzewa na pewno bêdzie wiêc korzeñ d1. Teraz rekurencyjnie ³¹czymy prawe poddrzewo d1 oraz ca³e drzewo d2, w wyniku dostaj¹c drzewo d3. Jako wynik ca³ej operacji ³¹czenia d1 i d2 zwracamy drzewo d4, w którego korzeniu jest korzeñ d1, natomiast poddrzewami s¹ lewe poddrzewo d1 oraz drzewo d3, przy czym prawym poddrzewem d4 zostaje to z nich, które ma mniejsz¹ praw¹ wysokoœæ. Dziêki temu d4 pozostaje drzewem lewicowym. Oczywiœcie przy konstrukcji drzewa d4 nale¿y pamiêtaæ o odpowiednim ustawieniu prawej wysokoœci.
+
+Rysunkow¹ wersjê ³¹czenia drzew lewicowych mo¿na zobaczyæ np. tu:
+https://courses.cs.washington.edu/courses/cse326/00wi/handouts/lecture7/sld001.htm
+
+W naszym zadaniu dla uproszczenia zak³adamy, ¿e dane sk³adaj¹ siê z samych priorytetów.

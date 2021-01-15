@@ -1,0 +1,1 @@
+Zaimplementuj bibliotekê dla fanów origami do badania ile warstw ma w danym punkcie sprytnie posk³adana kartka papieru. Biblioteka powinna implementowaæ interfejs origami.mli.

@@ -1,0 +1,49 @@
+Tam gdzie dokonujemy pomiarów wielkoœci fizycznych, wyniki s¹ obarczone pewnym b³êdem, np. 5m ± 10%. Ka¿d¹ tak¹ przybli¿on¹ wartoœæ traktujemy jak zbiór mo¿liwych wartoœci. Zaimplementuj pakiet operacji arytmetycznych na takich przybli¿onych wartoœciach zawieraj¹cy:
+
+konstruktory:
+wartosc_dokladnosc x p = x ± p% (dla p > 0),
+wartosc_od_do x y = (x+y)/2 ± (y-x)/2 (dla x < y),
+wartosc_dokladna x = x ± 0
+selektory:
+in_wartosc x y ^ wartoœæ x mo¿e byæ równa y,
+min_wartosc x = kres dolny mo¿liwych wartoœci x (lub -? jeœli mo¿liwe wartoœci x nie s¹ ograniczone od do³u),
+max_wartosc x = kres górny mo¿liwych wartoœci x (lub ? jeœli mo¿liwe wartoœci x nie s¹ ograniczone od góry),
+sr_wartosc x = œrednia (arytmetyczna) wartoœci min_wartosc x i max_wartosc x (lub nan jeœli min_wartosc x i max_wartosc x nie s¹ skoñczone),
+modyfikatory:
+plus a b = { x + y : in_wartosc a x ^ in_wartosc b y },
+minus a b = { x - y : in_wartosc a x ^ in_wartosc b y },
+razy a b = { x · y : in_wartosc a x ^ in_wartosc b y },
+podzielic a b = {x / y:  in_wartosc a x ^ in_wartosc b y }.
+Zak³adamy przy tym implicite, ¿e wszystkie argumenty typu float s¹ liczbami rzeczywistymi (tzn. s¹ ró¿ne od infinity, neg_infinity i nan.
+Natomiast w przypadku, gdy wynik nie jest liczb¹ rzeczywist¹, powinien byæ odpowiedni¹ z wartoœci: infinity, neg_infinity lub nan.
+
+Rozwi¹zuj¹c to zadanie mo¿esz przyj¹æ nastêpuj¹ce zasady u³atwiaj¹ce rozumowanie:
+
+Przyjmij, ¿e modyfikatory domykaj¹ wynikowe zbiory wartoœci – to znaczy, je¿eli wynikiem jest przedzia³ otwarty, to przyjmij, ¿e zostaje on zamieniony na przedzia³ domkniêty. 
+Operacje na wartoœciach przybli¿onych s¹ monotoniczne ze wzglêdu na zawieranie siê zbiorów mo¿liwych wartoœci.
+To znaczy, je¿eli wartoœci przybli¿one x, y i z spe³niaj¹, jako zbiory mo¿liwych wartoœci, x ? y, to:
+plus x z ? plus y z,
+plus z x ? plus z y,
+i podobie dla innych operacji arytmetycznych.
+Kilka przyk³adów opartych o powy¿sz¹ zasadê:
+
+let jeden = wartosc_dokladna 1.0;;
+let zero = wartosc_dokladna 0.0;;
+in_wartosc (razy jeden zero) 0.0;;
+- : bool = true
+in_wartosc (razy zero (wartosc_od_do 1.0 10.0)) 0.0;;
+- : bool = true
+in_wartosc (razy zero (wartosc_od_do 0.0 1.0)) 0.0;;
+- : bool = true
+let duzo = podzielic jeden (wartosc_od_do 0.0 1.0);;
+sr_wartosc duzo;;
+- : float = infinity
+in_wartosc (razy zero duzo) 0.0;;
+- : bool = true
+
+Liczby zmiennopozycyjne i operacje na nich potrafi¹ byæ zaskakuj¹ce. Na przyk³ad, standard IEEE przewiduje dwie reprezentacje zera (+0.0 i -0.0), przy czym 1.0 /. 0.0 = infinity, oraz 1.0 /. (-0.0) = neg_infinity. 
+Mo¿e byæ to pomocne, np. jeœli dzielisz przez wartoœæ przybli¿on¹, która zawiera jednostronne otoczenie zera.
+Ale mo¿e te¿ okazaæ siê pu³apk¹, gdy rozwa¿asz dzielenie przez wartoœæ dok³adnie równ¹ zero.
+Pamiêtaj, ¿e w definicji operacji podzielic, wystêpuje dzielenie "matematyczne", które nie jest okreœlone gdy dzielimy przez zero. 
+Mo¿e Ci siê przydaæ standardowa procedura classify_float, która u³atwia odró¿nienie nieskoñczonoœci, symbolu nieokreœlonego i zwyk³ych liczb.
+Twoje rozwi¹zanie ma byæ umieszczone w pliku o nazwie arytmetyka.ml i pasowaæ do specyfikacji interfejsu arytmetyka.mli.
